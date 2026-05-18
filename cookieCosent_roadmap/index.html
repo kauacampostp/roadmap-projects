@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <title>Cookie Consent</title>
+</head>
+
+<body>
+
+  <main id="main-content" class="main-content has-blur">
+
+
+    <article class="news-feed">
+      <header class="news-feed-header">
+        <h1>Jornal Diário</h1>
+        <h2>Noticias sobre Brasil</h2>
+      </header>
+
+      <section class="news-item">
+        <h3>Noticia 1</h3>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate quia sed delectus facilis asperiores
+          dignissimos amet! Ullam, ex sequi! Cupiditate earum fuga excepturi dolorem saepe eius, error deleniti fugiat
+          inventore?
+        </p>
+      </section>
+
+      <section class="news-item">
+        <h3>Noticia 2</h3>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate quia sed delectus facilis asperiores
+          dignissimos amet! Ullam, ex sequi! Cupiditate earum fuga excepturi dolorem saepe eius, error deleniti fugiat
+          inventore?
+        </p>
+      </section>
+
+      <section class="news-item">
+        <h3>Noticia 3</h3>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate quia sed delectus facilis asperiores
+          dignissimos amet! Ullam, ex sequi! Cupiditate earum fuga excepturi dolorem saepe eius, error deleniti fugiat
+          inventore?
+        </p>
+      </section>
+    </article>
+  </main>
+
+
+  <aside id="cookie-banner" class="cookie-banner" aria-label="Aviso de Cookies">
+    <p class="cookie-banner-text">
+      Usamos os cookie para uma melhor experiencia de usuário. <br>
+      <strong>Gostaria de comparilhar?</strong>
+    </p>
+
+    <div class="cookie-banner-actions">
+      <button class="btn bnt-primary" data-cookie-btn> Sim, eu gosto de cokies</button>
+      <button class="btn btn-secondary" data-cookie-btn> Não, estou de dieta</button>
+    </div>
+  </aside>
+
+</body>
+
+<script>
+  const cookieBanner = document.getElementById('cookie-banner');
+  const mainContent = document.getElementById('main-content');
+  const buttons = document.querySelectorAll('[data-cookie-btn]');
+
+  function closeBanner() {
+    cookieBanner.classList.add('is-hidden');
+    mainContent.classList.remove('has-blur');
+  }
+
+  buttons.forEach(btn => btn.addEventListener('click', closeBanner));
+
+</script>
+
+</html>
