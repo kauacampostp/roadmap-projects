@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flash Cards</title>
+
+  <style>
+    :root {
+      --progress: 0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+
+    section {
+      border: solid;
+      border-radius: 4px;
+
+      max-width: 800px;
+      width: 100%;
+      height: auto;
+
+      display: block;
+    }
+
+    .barraExterna {
+      border: solid 3px;
+      border-radius: 5px;
+      width: 100%;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .barraInterna {
+      background-color: blue;
+      border-radius: 5px;
+      width: calc((100% - 4px) * var(--progress));
+      margin: 2px;
+      height: 1.3rem;
+    }
+
+    .porcentagem {
+      font-weight: 900;
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .card {
+      background-color: rgb(185, 185, 185);
+
+      font-size: 1.8rem;
+
+      padding: 0.5rem;
+      margin: 0.1rem;
+      min-width: 300px;
+
+      border: none;
+      border-radius: 5px;
+
+      display: flex;
+      justify-content: center;
+
+      transition: opacity 0.2s ease;
+    }
+
+    .card.fade {
+      opacity: 0;
+    }
+
+    .button {
+      background-color: rgb(185, 185, 185);
+
+      padding: 0.3rem;
+      margin: 0.1rem;
+
+      border-radius: 5px;
+
+      display: flex;
+      justify-content: space-around;
+
+    }
+
+    .button button {
+      background-color: rgb(185, 185, 185);
+      border: none;
+
+      font-size: 0.9rem;
+      font-weight: 800;
+
+      cursor: pointer;
+
+    }
+
+    .button button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+
+</head>
+
+
+<body>
+
+  <main>
+    <h1>Flash Cards</h1>
+
+    <div class="barraExterna">
+      <div class="barraInterna" id="barraInterna"></div>
+      <span class="porcentagem" id="porcentagem"></span>
+    </div>
+
+    <section>
+      <article class="card">
+        <p class="questionText" id="questionText"></p>
+        <p class="answerText hidden" id="answerText"></p>
+      </article>
+
+
+      <div class="button">
+        <button id="previous">Previous</button>
+        <button id="showAnswer">Show Answer</button>
+        <button class="hidden" id="hiddenAnswer">Hide Answer</button>
+        <button id="next">Next</button>
+        <button class="hidden" id="reset">Reset</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const btnShow = document.getElementById('showAnswer');
+    const btnHidden = document.getElementById('hiddenAnswer');
+    const btnNext = document.getElementById('next');
+    const btnPrevious = document.getElementById('previous');
+    const btnReset = document.getElementById('reset');
+    const progress_valor = document.getElementById('porcentagem');
+    const root = document.documentElement;
+    const questionText = document.getElementById('questionText');
+    const answerText = document.getElementById('answerText');
+
+    let currentCard = 0;
+    let cards = [
+      {
+        question: 'Quantos anos você tem?',
+        answer: 'Acho que 5!'
+      },
+      {
+        question: 'Qual a capital do Brasil?',
+        answer: 'Brasília'
+      },
+      {
+        question: 'Quanto é 2 + 2?',
+        answer: 4
+      }
+    ]
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function renderCard() {
+      const card = document.querySelector('.card');
+      card.classList.add('fade');
+
+      setTimeout(() => {
+        questionText.textContent = cards[currentCard].question;
+        answerText.textContent = cards[currentCard].answer;
+        card.classList.remove('fade');
+      }, 200);
+    }
+
+    function updateProgress() {
+      const progress = (currentCard + 1) / cards.length;
+      root.style.setProperty('--progress', progress);
+      progress_valor.textContent = `${currentCard + 1} / ${cards.length}`;
+    }
+
+    function updateButtons() {
+      btnPrevious.disabled = currentCard === 0;
+
+      const isLast = currentCard === cards.length - 1;
+      btnNext.classList.toggle('hidden', isLast);
+      btnReset.classList.toggle('hidden', !isLast);
+    }
+
+    function loadCard() {
+      renderCard();
+      updateProgress();
+      updateButtons();
+    }
+
+
+
+    function showQuestion() {
+      btnShow.classList.remove('hidden');
+      btnHidden.classList.add('hidden');
+      questionText.classList.remove('hidden');
+      answerText.classList.add('hidden');
+    }
+
+    function toggleCard() {
+      btnShow.classList.toggle('hidden');
+      btnHidden.classList.toggle('hidden');
+      questionText.classList.toggle('hidden');
+      answerText.classList.toggle('hidden');
+    }
+
+    function next() {
+      if (currentCard < cards.length - 1) {
+        currentCard++;
+        loadCard();
+        showQuestion();
+        saveProgress();
+      }
+    }
+
+    function previous() {
+      if (currentCard > 0) {
+        currentCard--;
+        loadCard();
+        showQuestion();
+        saveProgress();
+      }
+    }
+
+    function reset() {
+      currentCard = 0;
+      shuffle(cards);
+      saveProgress();
+      loadCard();
+      showQuestion();
+    }
+
+
+
+    function saveProgress() {
+      localStorage.setItem('flashcard-progress', JSON.stringify({
+        currentCard: currentCard,
+        cards: cards
+      }));
+    }
+
+    function loadProgress() {
+      const saved = localStorage.getItem('flashcard-progress');
+      if (saved) {
+        const data = JSON.parse(saved);
+        currentCard = data.currentCard;
+        cards = data.cards;
+      } else {
+        shuffle(cards);
+        saveProgress();
+      }
+    }
+
+    btnShow.addEventListener('click', toggleCard);
+    btnHidden.addEventListener('click', toggleCard);
+    btnPrevious.addEventListener('click', previous);
+    btnNext.addEventListener('click', next);
+    btnReset.addEventListener('click', reset);
+
+    loadProgress();
+    loadCard();
+
+  </script>
+
+
+
+
+</body>
+
+</html>
