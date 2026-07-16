@@ -13,6 +13,7 @@ Repositório com mini-projetos desenvolvidos seguindo o roadmap de Frontend do [
 | Flash Cards | [Ver desafio](https://roadmap.sh/projects/flash-cards) | [Ver projeto](https://kauacampostp.github.io/roadmap-projects/flashCards_roadmap) |
 | Cookie Consent | [Ver desafio](https://roadmap.sh/projects/cookie-consent) | [Ver projeto](https://kauacampostp.github.io/roadmap-projects/cookieCosent_roadmap) |
 | Tabs | [Ver desafio](https://roadmap.sh/projects/simple-tabs) | [Ver projeto](https://kauacampostp.github.io/roadmap-projects/Tabs_RoadMap) |
+| Repository | [Ver desafio](https://roadmap.sh/projects/github-random-repo) | [Ver projeto](https://kauacampostp.github.io/roadmap-projects/) |
 
 ---
 
