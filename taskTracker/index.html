@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1 class="title">Task Track</h1>
+
+  <section class="new-task" id="newTask">
+    <input class="new-task__input" id="newTaskInput" placeholder="Digite aqui">
+    <button class="new-task__enter" id="newTaskEnter"> ↵ </button>
+  </section>
+
+  <section class="tasks" id="tasks"></section>
+  <p class="hidden" id="emptyState">Nenhuma tarefa cadastrada</p>
+
+  <script>
+    const input = document.getElementById('newTaskInput');
+    const btnEnter = document.getElementById('newTaskEnter');
+    const emptyState = document.getElementById('emptyState');
+    const displayTasks = document.getElementById('tasks');
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    function newTask() {
+      const texto = input.value.trim(); // trim() tirar espaços em branco do inicio e fim
+
+      if(texto === '') return;
+
+      const task = {
+        title: texto,
+        status: "ToDo"
+      };
+      tasks.push(task);
+      input.value = ''
+      renderTasks();
+    }
+
+    function deleteTask(index){
+      tasks.splice(index, 1);
+      renderTasks();
+    }
+
+    function renderTasks(){
+      const tasksToDo = tasks.filter((n) => n.status === "ToDo");
+      const tasksDone = tasks.filter((n) => n.status === "Done");
+      const tasksToRender = [...tasksToDo, ...tasksDone];
+      
+      displayTasks.innerHTML = '';
+      
+      if(tasksToRender.length === 0){
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      for(let i = 0; i < tasksToRender.length; i++){
+        const taskT = tasksToRender[i];
+        const div = document.createElement('div');
+        const checkbox = document.createElement('input');
+        const span = document.createElement('span');
+        const del = document.createElement('button');
+        
+        checkbox.classList.add('task__checkbox');
+        checkbox.type = 'checkbox';
+        checkbox.setAttribute('aria-label', `Marcar "${taskT.title}" como concluída`);
+        checkbox.checked = taskT.status === 'Done';
+
+        span.classList.add('task__span');
+        span.textContent = taskT.title;
+
+        del.textContent = '🗑';
+        del.classList.add('task__del');
+
+        div.classList.add('task');
+        div.classList.add(taskT.status === 'ToDo' ? 'task__todo' : 'task__done');
+        div.dataset.index = tasks.indexOf(taskT);
+
+        div.appendChild(checkbox);
+        div.appendChild(span);
+        div.appendChild(del);
+        displayTasks.appendChild(div);
+      }
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    displayTasks.addEventListener('click', (e) => {
+      const div = e.target.closest('.task');
+      if(!div) return;
+
+      const index = div.dataset.index;
+
+      if (e.target.classList.contains('task__checkbox')) {
+        tasks[index].status = tasks[index].status === 'ToDo' ? 'Done' : 'ToDo';
+        renderTasks();
+      }
+
+      if (e.target.classList.contains('task__del')) {
+        deleteTask(index);
+      }
+    })
+
+    displayTasks.addEventListener('dblclick', (e) => {
+      if(!e.target.classList.contains('task__span')) return;
+
+      const span = e.target;
+      const div = span.closest('.task');
+      const index = div.dataset.index;
+      const valorOriginal = span.textContent;
+
+      const editInput = document.createElement('input');
+      editInput.type = 'text';
+      editInput.value = valorOriginal;
+      editInput.classList.add('task__edit--input');
+
+      editInput.style.fontFamily = 'inherit';
+      editInput.style.fontSize = 'inherit';
+      editInput.style.flex = '1';
+
+      span.replaceWith(editInput);
+      editInput.focus();
+
+      let complete = false;
+
+      function saveEdit(){
+        if(complete) return;
+        complete = true;
+
+        const newText = editInput.value.trim();
+
+        if(newText === ''){
+          renderTasks();
+        } else {
+          tasks[index].title = newText;
+          renderTasks();
+        }
+      }
+
+      function cancelEdit(){
+        if(complete) return;
+        complete = true;
+        renderTasks();
+      }
+
+      editInput.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter'){
+          saveEdit();
+        } else if (e.key === 'Escape') {
+          cancelEdit();
+        }
+      });
+      editInput.addEventListener('blur', saveEdit);
+    })
+
+    renderTasks();
+
+    btnEnter.addEventListener('click', newTask);
+    input.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter') newTask();
+    })
+  </script>
+
+</body>
+</html>

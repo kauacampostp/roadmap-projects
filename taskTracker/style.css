@@ -1,0 +1,133 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== LAYOUT ===== */
+
+body {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title {
+  font-family: cursive;
+  font-size: 1.5rem;
+  max-width: 400px;
+  width: 100%;
+  text-align: left;
+}
+
+/* ===== new-task ===== */
+
+.new-task {
+  border: solid black;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 100%;
+  padding: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.new-task__input {
+  border: none;
+  background-color: white;
+  width: 100%;
+  margin: 5px;
+  font-size: 1rem;
+  font-family: cursive;
+
+}
+
+.new-task__input:focus {
+  outline: none;
+}
+
+.new-task__input::placeholder {
+  color: rgb(100, 101, 111);
+}
+
+.new-task__enter {
+  background-color: black;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 100;
+  border-radius: 10px;
+  display: flex;
+  width: 15%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.new-task__enter:hover{
+  background-color: rgb(138, 138, 138);
+  color: black;
+}
+
+/* ===== Tasks list ===== */
+
+.tasks {
+  max-width: 400px;
+  width: 100%;
+}
+
+.task {
+  font-family: cursive;
+  border-bottom: solid rgb(78, 78, 78) 1px;
+  max-width: 400px;
+  width: 100%;
+  padding: 1px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px
+}
+
+.task__checkbox {
+  width: 18px;
+  height: 18px;
+  appearance: none;
+  border: 3px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.task__checkbox:checked {
+  background-color: rgb(78, 78, 78);
+}
+
+.task__span {
+  flex: 1;
+}
+
+.task__del {
+  font-size: 1.4rem;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.task__done .task__span {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: rgb(78, 78, 78);
+  color: rgb(132, 132, 132);
+}
+
+.hidden {
+  display: none;
+}
