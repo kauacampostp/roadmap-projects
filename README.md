@@ -31,7 +31,9 @@ Repositório com mini-projetos desenvolvidos seguindo o roadmap de Frontend do [
 roadmap-projects/
 ├── flashCards_roadmap/
 ├── cookieCosent_roadmap/
-└── Tabs_RoadMap/
+├── Tabs_RoadMap/
+├── GitHub_Random_Repository_roadmap/
+└── taskTracker/
 ```
 
 ---
