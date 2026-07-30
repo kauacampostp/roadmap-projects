@@ -15,7 +15,7 @@ Repositório com mini-projetos desenvolvidos seguindo o roadmap de Frontend do [
 | Tabs | [Ver desafio](https://roadmap.sh/projects/simple-tabs) | [Ver projeto](https://kauacampostp.github.io/roadmap-projects/Tabs_RoadMap) |
 | Repository | [Ver desafio](https://roadmap.sh/projects/github-random-repo) | [Ver projeto](https://kauacampostp.github.io/roadmap-projects/GitHub_Random_Repository_roadmap) |
 | Task Tracker | [Ver desafio](https://roadmap.sh/projects/task-tracker-js) | [Ver projeto](https://kauacampostp.github.io/roadmap-projects/taskTracker) |
-| Time | [Ver projeto](https://kauacampostp.github.io/roadmap-projects/time)
+| Time | [Ver desafio](https://roadmap.sh/full-stack) | [Ver projeto](https://kauacampostp.github.io/roadmap-projects/time)
 ---
 
 ## 🛠️ Tecnologias
