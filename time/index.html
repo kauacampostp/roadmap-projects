@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clock</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="time">
+    <section class="time-zone" id="timezone">
+      <span id="zoneText"></span>
+      <button type="button" class="btnEdit" id="btnZone" aria-label="Alterar fuso horário" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 20h9"></path>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+        </svg>
+      </button>
+    </section>
+
+    <section class="time-hours" id="timeHours">12:00:00</section>
+
+    <div class="time-footer">
+      <section class="time-date" id="timeDate">monday, 1 of may, 2026</section>
+      <button class="btnFormat" id="btnFormat" type="button" aria-pressed="true">24h</button>
+    </div>
+  </main>  
+
+  <div class="modal hidden" id="modal" aria-hidden="true">
+    <div class="modal-overlay" id="modalOverlay" data-micromodal-close>
+      <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="modalTitle" >
+        <header class="modal-header">
+          <h2 class="modal-title" id="modalTitle">Change Timezone</h2>
+          <button class="modal-close" id="modalClose" aria-label="Close modal">x</button>
+        </header>
+
+        <div class="modal-dropdown">
+          <label for="dropdownBtn" class="visually-hidden">Search Timezone</label>
+          <input type="text" class="dropdown-btn" id="dropdownBtn" placeholder="Search a timezone..." autocomplete="off">
+          <ul class="dropdown-list" id="dropdownList" role="listbox" aria-label="list of all timezones"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/utc.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/timezone.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
+
+
